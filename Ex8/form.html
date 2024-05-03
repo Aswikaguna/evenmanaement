@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Registration Form</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-image: url('https://images.pexels.com/photos/3052360/pexels-photo-3052360.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'); /* Replace 'background-image.jpg' with your actual image path */
+      background-size: cover;
+      background-position: center;
+      color: white;
+    }
+    .container {
+      margin-top: 50px;
+    }
+    .form-container {
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+    .form-container label {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="container">
+    <div class="form-container col-md-6 offset-md-3">
+      <h2 class="text-center">Event Registration Form</h2>
+      <form id="registrationForm">
+        <div class="form-group">
+          <label for="EName">Name:</label>
+          <input type="text" class="form-control" id="EName" name="EName" required>
+        </div>
+
+        <div class="form-group">
+          <label for="Email">Email:</label>
+          <input type="email" class="form-control" id="Email" name="Email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="Age">Age:</label>
+          <input type="number" class="form-control" id="Age" name="Age" required>
+        </div>
+
+        <div class="form-group">
+          <label>Gender:</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="Gender" id="Male" value="male" required>
+            <label class="form-check-label" for="Male">Male</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="Gender" id="Female" value="female" required>
+            <label class="form-check-label" for="Female">Female</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="Gender" id="Other" value="other" required>
+            <label class="form-check-label" for="Other">Other</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="Location">Location:</label>
+          <input type="text" class="form-control" id="Location" name="Location" required>
+        </div>
+        <div class="form-group">
+          <label for="EventType">Event Type:</label>
+          <select class="form-control" id="EventType" name="EventType" required>
+            <option value="">Select</option>
+            <option value="conference">Conference</option>
+            <option value="workshop">Workshop</option>
+            <option value="seminar">Seminar</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary" href="eventregistration.js">Register</button>
+      </form>
+      <div id="response"></div> <!-- Response message will be displayed here -->
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('registrationForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      var name = document.getElementById('EName').value;
+      var email = document.getElementById('Email').value;
+      var age = document.getElementById('Age').value;
+      var gender = document.querySelector('input[name="Gender"]:checked');
+      var location = document.getElementById('Location').value;
+      var eventType = document.getElementById('EventType').value;
+
+      if (name.trim() === '' || email.trim() === '' || age.trim() === '' || !gender || location.trim() === '' || eventType.trim() === '') {
+        displayError('All fields are required');
+        return;
+      }
+
+      // Store form data in session storage
+      var formData = {
+        name: name,
+        email: email,
+        age: age,
+        gender: gender.value,
+        location: location,
+        eventType: eventType
+      };
+      sessionStorage.setItem('formData', JSON.stringify(formData));
+
+      window.location.href = 'suc.html'; // Redirect to the next page
+    });
+
+    function displayError(message) {
+      var errorContainer = document.createElement('div');
+      errorContainer.className = 'alert alert-danger mt-3';
+      errorContainer.textContent = message;
+      var response = document.getElementById('response');
+      response.innerHTML = ''; // Clear any previous messages
+      response.appendChild(errorContainer);
+    }
+  </script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

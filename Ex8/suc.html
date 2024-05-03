@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Success Page</title>
+  <style>
+    body {
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      margin-top: 50px;
+      text-align: center;
+    }
+    .card {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+    <div class="card">
+      <h2>Thank you for registering!</h2>
+      <p>Here are the details you provided:</p>
+      <div id="formData"></div>
+    </div>
+  </div>
+
+  <script>
+    // Retrieve form data from session storage
+    var formData = JSON.parse(sessionStorage.getItem('formData'));
+
+    // Display form data on the page if available
+    var formDataContainer = document.getElementById('formData');
+    if (formData) {
+      formDataContainer.innerHTML = `
+        <p><strong>Name:</strong> ${formData.name}</p>
+        <p><strong>Email:</strong> ${formData.email}</p>
+        <p><strong>Age:</strong> ${formData.age}</p>
+        <p><strong>Gender:</strong> ${formData.gender}</p>
+        <p><strong>Location:</strong> ${formData.location}</p>
+        <p><strong>Event Type:</strong> ${formData.eventType}</p>
+      `;
+    } else {
+      formDataContainer.innerHTML = "<p>No form data available.</p>";
+    }
+  </script>
+</body>
+</html>
